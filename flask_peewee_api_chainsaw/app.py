@@ -68,14 +68,13 @@ def update_chainsaw(id):
                         country=request.form['country'],
                         catches=request.form['catches'])\
             .where(Chainsaw.id == id).execute()
-
         return 'ok', 200
 
 
-@app.route('/api/chainsaw/', methods=['DELETE'])
+@app.route('/api/chainsaw/<id>/', methods=['DELETE'])
 def delete_chainsaw(id):
     with database.atomic():
-        Chainsaw.delete().where(Chainsaw.id == id)
+        Chainsaw.delete().where(Chainsaw.id == id).execute()
     return 'ok', 200
 
 
