@@ -1,40 +1,44 @@
 import os 
 import requests 
 
-key = os.environ.get('MOVIE_KEY')  # Ask Clara if you'd like a key to try this code 
-key = '528036ee90344d71485d8a0491414fe91ba5f953'
-base_url = 'https://movies-2417.herokuapp.com/api/movies/'  
+base_url = 'http://127.0.0.1:8000/api/movies/'
 
-headers = {'Authorization' : 'Token ' + key}
+key = os.environ.get('MOVIE_API_KEY_LOCAL')  # replace with your key, or even better, an environment variable 
 
-# Add movies with POST.
+# A user's movies must have unique names. Movie ratings are out of 5
 
-movie = {'name': 'Frozsdfdfen', 'rating': 2}
-response = requests.post(base_url, headers=headers, data=movie)
-print(response.json())  # the movie object, or maybe an error message
+auth_header = {'Authorization': 'Token ' + key }
+movie = {'name': 'Wonder Woman', 'rating': 4}
 
-movie = {'name': 'Black Panther', 'rating': 5}
-response = requests.post(base_url, headers=headers, data=movie)
-print(response.json())
+response = requests.post(base_url, data=movie, headers=auth_header)
+wonder_woman = response.json()
+wonder_woman_id = wonder_woman['id']
+print('Added movie', response.status_code, wonder_woman)  # expect 200, movie JSON including ID assigned by server 
 
-# Get all the movies 
-movies = requests.get(base_url, headers=headers)
-for movie in movies.json():
-    print(movie)
+movie = {'name': 'Batman', 'rating': 3}
+response = requests.post(base_url, data=movie, headers=auth_header)
+batman = response.json()
+print('Added movie', batman)
 
-movie_id = input('Enter movie to change rating: ')
-new_rating = int(input('New rating: '))    # obvious todo - validation 
+# Patch - update Batman 
+batman_id = batman['id']
+response = requests.patch(f'{base_url}{batman_id}', data={'rating': 4}, headers=auth_header)
+print('After update', response.json())
 
-# Modify a movie 
-# Need the movie's ID 
-update_movie = {'rating': new_rating}
-response = requests.patch(base_url + movie_id + '/', headers=headers, data=update_movie)
-print(response.status_code, response.text)
- 
-# Delete a movie 
+# Get Batman - get one 
+response = requests.patch(f'{base_url}{batman_id}', headers=auth_header)
+movie = response.json()
+print('Get one', movie)
 
-movie_id = input('Enter movie to delete: ')
+# Get all 
+response = requests.get(base_url, headers=auth_header)
+movies = response.json()
+print('Get all', movies)
 
-response = requests.delete(base_url + movie_id + '/', headers=headers)
-print(response.text)
+# Delete Batman 
+response = requests.delete(f'{base_url}{batman_id}', headers=auth_header)
+print(response.status_code)  # 204, request processed, no content to send in response 
 
+# Delete Wonderwoman 
+response = requests.delete(f'{base_url}{wonder_woman_id}', headers=auth_header)
+print(response.status_code)  # 204, request processed, no content to send in response 
