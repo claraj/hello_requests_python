@@ -22,11 +22,11 @@ print('Added movie', batman)
 
 # Patch - update Batman 
 batman_id = batman['id']
-response = requests.patch(f'{base_url}{batman_id}', data={'rating': 4}, headers=auth_header)
+response = requests.patch(f'{base_url}{batman_id}/', data={'rating': 4}, headers=auth_header)
 print('After update', response.json())
 
 # Get Batman - get one 
-response = requests.patch(f'{base_url}{batman_id}', headers=auth_header)
+response = requests.patch(f'{base_url}{batman_id}/', headers=auth_header)
 movie = response.json()
 print('Get one', movie)
 
@@ -36,9 +36,9 @@ movies = response.json()
 print('Get all', movies)
 
 # Delete Batman 
-response = requests.delete(f'{base_url}{batman_id}', headers=auth_header)
+response = requests.delete(f'{base_url}{batman_id}/', headers=auth_header)
 print(response.status_code)  # 204, request processed, no content to send in response 
 
 # Delete Wonderwoman 
-response = requests.delete(f'{base_url}{wonder_woman_id}', headers=auth_header)
+response = requests.delete(f'{base_url}{wonder_woman_id}/', headers=auth_header)
 print(response.status_code)  # 204, request processed, no content to send in response 
