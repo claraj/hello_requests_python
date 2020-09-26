@@ -3,7 +3,7 @@ import requests
 
 base_url = 'http://127.0.0.1:8000/api/movies/'
 
-key = os.environ.get('MOVIE_API_KEY_LOCAL')  # replace with your key, or even better, an environment variable 
+key = os.environ.get('MOVIE_API_KEY_LOCAL')  # Set an environment variable
 
 # A user's movies must have unique names. Movie ratings are out of 5
 
