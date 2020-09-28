@@ -2,21 +2,19 @@
 
 ### From the api directory:
 
-To run the API server, set an environment variable 
-
-`FLASK_APP=app.py`
-
-Set another environment variable to configure development mode 
-
-`FLASK_ENV=development`
+Create a virtual environment and activate it 
 
 Install dependencies 
 
 `pip install -r requirements.txt`
 
+To run the API server, set an environment variable to configure development mode 
+
+`FLASK_ENV=development`
+
 Then run with 
 
-`flask run`
+`python app.py`
 
 App will be running on port 5000. 
 
@@ -39,3 +37,14 @@ Install dependencies
 Run with 
 
 `python client.py`
+
+Edit client.py to add, change, work with the different types of API calls.
+
+Examples 
+
+```
+HTTP POST http://127.0.0.1:5000/api/chainsaw 
+Create a new record, must provide new data in JSON form in the body 
+HTTP PATCH http://127.0.0.1:5000/api/chainsaw/1  Edit record with ID 1, must provide new data in JSON form in the body  
+HTTP DELETE http://127.0.0.1:5000/api/chainsaw/1 Delete record with ID = 1 
+``` 
