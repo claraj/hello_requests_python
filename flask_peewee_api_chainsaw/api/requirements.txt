@@ -3,7 +3,7 @@ blinker==1.4
 Click==7.0
 Flask==1.0.2
 itsdangerous==1.1.0
-Jinja2==2.10
+Jinja2==2.11.3
 jsonschema==2.6.0
 MarkupSafe==1.1.0
 peewee==3.8.2
